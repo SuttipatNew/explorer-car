@@ -3,7 +3,6 @@
 
 void setup()
 {
-//  Serial.begin(115/200);
   pinMode(PIN_PB2, OUTPUT);
   pinMode(PIN_PB3, OUTPUT);
   pinMode(PIN_PB4, OUTPUT);
@@ -20,13 +19,11 @@ void loop()
   int pin0 = digitalRead(PIN_PC0);
   int pin1 = digitalRead(PIN_PC1);
   int pin2 = digitalRead(PIN_PC2);
-//  String request = Serial.read/StringUntil('\r');
-//  move(request);
   move(pin0, pin1, pin2);
 }
 
 void move(int pin0, int pin1, int pin2) {
-  if(!pin2 || (findDistance() <= 10 && pin0 && pin1)) {
+  if(!pin2 /*|| (findDistance() <= 10 && pin0 && pin1)*/) {
     digitalWrite(PIN_PB2, LOW);
     digitalWrite(PIN_PB3, LOW);
     digitalWrite(PIN_PB4, LOW);
@@ -53,35 +50,6 @@ void move(int pin0, int pin1, int pin2) {
       digitalWrite(PIN_PB4, LOW);
       digitalWrite(PIN_PB5, HIGH);
     }
-  }
-}
-
-void move(String request) {
-  if(request.indexOf("DIR=STILL") != -1 || (findDistance() <= 10 && request.indexOf("DIR=UP") != -1)) {
-    digitalWrite(PIN_PB2, LOW);
-    digitalWrite(PIN_PB3, LOW);
-    digitalWrite(PIN_PB4, LOW);
-    digitalWrite(PIN_PB5, LOW);
-  } else if(request.indexOf("DIR=UP") != -1) {
-    digitalWrite(PIN_PB2, HIGH);
-    digitalWrite(PIN_PB3, LOW);
-    digitalWrite(PIN_PB4, HIGH);
-    digitalWrite(PIN_PB5, LOW);
-  } else if(request.indexOf("DIR=DOWN") != -1) {
-    digitalWrite(PIN_PB2, LOW);
-    digitalWrite(PIN_PB3, HIGH);
-    digitalWrite(PIN_PB4, LOW);
-    digitalWrite(PIN_PB5, HIGH);
-  } else if(request.indexOf("DIR=LEFT") != -1) {
-    digitalWrite(PIN_PB2, LOW);
-    digitalWrite(PIN_PB3, HIGH);
-    digitalWrite(PIN_PB4, HIGH);
-    digitalWrite(PIN_PB5, LOW);
-  } else if(request.indexOf("DIR=RIGHT") != -1) {
-    digitalWrite(PIN_PB2, HIGH);
-    digitalWrite(PIN_PB3, LOW);
-    digitalWrite(PIN_PB4, LOW);
-    digitalWrite(PIN_PB5, HIGH);
   }
 }
 
