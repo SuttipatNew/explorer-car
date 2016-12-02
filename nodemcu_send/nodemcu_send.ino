@@ -6,10 +6,10 @@
 
 //const char* ssid = "D-Link home network";
 //const char* password = "Home025611592";
-//const char* ssid = "KUWIN";
-//const char* password = "";
-const char* ssid = "HUAWEI_P9lite_8928";
-const char* password = "12345678";
+const char* ssid = "KUWIN";
+const char* password = "";
+//const char* ssid = "HUAWEI_P9lite_8928";
+//const char* password = "12345678";
 
 WiFiServer server(80);
 WiFiClient client;
@@ -72,8 +72,8 @@ void loop() {
   String request = getRequest();
   if(request != "") {
     Serial.println(request);
-//    move(r/equest);
-    Serial1.println(request);
+    move(request);
+//    Serial1.println(request);
   }
 }
 

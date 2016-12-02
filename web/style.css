@@ -2,6 +2,7 @@ body {
   padding: 0px;
   margin: 0px;
   font-family: Lato;
+  background-color: #e6f2ff;
 }
 
 .container {
@@ -19,7 +20,7 @@ h1 {
   position: absolute;
   top: -14px;
   left: 20px;
-  text-shadow: 3px 3px rgba(11,11,11, 0.5);
+  /*text-shadow: 3px 3px rgba(11,11,11, 0.5);*/
 }
 
 .header {
@@ -54,7 +55,7 @@ div.title.controller {
 }
 
 .pressing {
-  background-color: #ffe6e6;
+  background-color: #33cc33;
 }
 
 div.ip_input {
