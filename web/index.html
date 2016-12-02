@@ -1,0 +1,48 @@
+<html>
+<head>
+  <title>NodeMCU Test</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="jquery.min.js"></script> -->
+	<script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row header">
+      <h1>EXPLORER CAR CONTROLLER</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-4" style="text-align: center;">
+        <h2 class="controller wheel">Movement</h2>
+        <div class="controller wheel">
+          <button type="button" class="wheel btn" name="UP" id="UP">UP</button><br><br>
+          <button type="button" class="wheel btn" name="LEFT" id="LEFT">LEFT</button>
+          <button type="button" class="wheel btn" name="DOWN" id="DOWN">DOWN</button>
+          <button type="button" class="wheel btn" name="RIGHT" id="RIGHT">RIGHT</button>
+        </div>
+      </div>
+      <div class="col-md-4" style="text-align: center;">
+        <div class="ip_input" style="text-align: center;">
+          <h3 class="ip_input">NodeMCU's IP Address</h3>
+          <br><br>
+          <input type="text" name="ip_input" class="ip_input" placeholder="IP">
+          <button type="submit" name="submit_button" class="ip_input">submit</button>
+          <br>
+          <p id="current_ip"></p>
+          <script type="text/python">print("hello world")</script>
+        </div>
+      </div>
+      <div class="col-md-4" style="text-align: center;">
+        <h2 class="controller cam">Camera</h2>
+        <div class="controller cam">
+          <button type="button" class="cam btn" name="LEFT" id="LEFT">LEFT</button>
+          <button type="button" class="cam btn" name="RIGHT" id="RIGHT">RIGHT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
