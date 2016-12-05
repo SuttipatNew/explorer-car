@@ -8,10 +8,10 @@
 char auth[] = "d47461487fe24c2bac9d7b04d72c9439";
 //char ssid[] = "KUWIN";
 //char password[] = "";
-const char* ssid = "Booktay2.4";
-const char* password = "5732639423";
-//const char* ssid = "Booktay";
-//const char* password = "12345678";
+//const char* ssid = "Booktay2.4";
+//const char* password = "5732639423";
+const char* ssid = "Booktay";
+const char* password = "12345678";
 
 Servo servo;
 
@@ -39,9 +39,6 @@ void setup()
 
   WiFi.begin(ssid, password);
 
-  Serial.print("IP address: ");
-
-  Serial.println(WiFi.localIP());
 
   Blynk.begin(auth, ssid, password);
 

@@ -3,20 +3,39 @@ var nodeMcuIp;
 function clickMove(element) {
   if($('.pressing').length === 0) {
     var dir = element.attr('id');
-    $.get(nodeMcuIp, {DIR:dir});
+    // $.get(nodeMcuIp, {DIR:dir});
+    var pin = getPin(dir);
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1')
     $('#' + dir).addClass('pressing');
   }
 }
 
+function getPin(dir) {
+  var pin = null;
+  if(dir === 'UP') {
+    pin = 3;
+  } else if(dir === 'DOWN') {
+    pin = 4;
+  } else if(dir === 'LEFT') {
+    pin = 5;
+  } else {
+    pin = 6;
+  }
+  return pin;
+}
+
 function still() {
   $('.wheel.pressing').removeClass('pressing');
-  $.get(nodeMcuIp, {DIR:'STILL'});
+  // $.get(nodeMcuIp, {DIR:'STILL'});
+  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/7?value=1')
 }
 
 function pressMove(element) {
   if($('.pressing.wheel').length === 0) {
     var dir = element.attr('id');
-    $.get(nodeMcuIp, {DIR:dir});
+    // $.get(nodeMcuIp, {DIR:dir});
+    var pin = getPin(dir);
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1')
     element.addClass('pressing');
   }
 }
@@ -32,13 +51,15 @@ function panCam(element) {
   if($('.pressing.cam').length == 0) {
     element.addClass('pressing');
     var dir = element.attr('id');
-    $.get(nodeMcuIp, {CAM:dir});
+    // $.get(nodeMcuIp, {CAM:dir});
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1')
   }
 }
 
 function stillCam() {
   $('.pressing.cam').removeClass('pressing');
-  $.get(nodeMcuIp, {CAM:'STILL'});
+  // $.get(nodeMcuIp, {CAM:'STILL'});
+  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1')
 }
 
 
@@ -68,12 +89,6 @@ $(document).ready(function(){
         panCam($('.cam#RIGHT'));
       } else if (event.keyCode === 188) {  //camera left
         panCam($('.cam#LEFT'));
-      }
-      var xhttp = new XMLHttpRequest();
-      xhttp.open("GET", "http://10.2.6.157/", true);
-      xhttp.send();
-      if(this.readyState == 4) {
-        alert(this.responseText);
       }
     } else {
       if(key === '\r') {
