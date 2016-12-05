@@ -1,11 +1,12 @@
 var nodeMcuIp;
+var camAngle = 90;
 
 function clickMove(element) {
   if($('.pressing').length === 0) {
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {DIR:dir});
     var pin = getPin(dir);
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1')
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1');
     $('#' + dir).addClass('pressing');
   }
 }
@@ -27,7 +28,7 @@ function getPin(dir) {
 function still() {
   $('.wheel.pressing').removeClass('pressing');
   // $.get(nodeMcuIp, {DIR:'STILL'});
-  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/7?value=1')
+  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/7?value=1');
 }
 
 function pressMove(element) {
@@ -35,7 +36,7 @@ function pressMove(element) {
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {DIR:dir});
     var pin = getPin(dir);
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1')
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/' + pin + '?value=1');
     element.addClass('pressing');
   }
 }
@@ -52,14 +53,19 @@ function panCam(element) {
     element.addClass('pressing');
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {CAM:dir});
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1')
+    if(dir == 'RIGHT') {
+      camAngle += 5;
+    } else {
+      camAngle -= 5;
+    }
+    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/2?value=' + camAngle);
   }
 }
 
 function stillCam() {
   $('.pressing.cam').removeClass('pressing');
   // $.get(nodeMcuIp, {CAM:'STILL'});
-  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1')
+  // $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1');
 }
 
 
