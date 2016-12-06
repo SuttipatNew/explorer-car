@@ -83,7 +83,7 @@ button.ip_input {
   border-radius: 10%;
 }
 
-p#current_ip {
+p#current_auth_token {
   margin-top: 10px;
 }
 
@@ -107,6 +107,16 @@ button.connect {
   position: relative;
   top: -4px;
   margin: 10px;
+}
+
+button.connect#refresh {
+  background: url("refresh.png");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: none;
+  border: none;
+  padding: 12px;
 }
 
 h2.cam {

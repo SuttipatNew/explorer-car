@@ -1,11 +1,12 @@
-var nodeMcuIp;
+// var nodeMcuIp;
 var camAngle = 90;
 var isCarConnect = false;
+var auth_token = 'd47461487fe24c2bac9d7b04d72c9439';
 
 function checkConnection() {
   var request = new XMLHttpRequest();
 
-  request.open('GET', 'http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/isHardwareConnected');
+  request.open('GET', 'http://blynk-cloud.com/' + auth_token + '/isHardwareConnected');
 
   request.onreadystatechange = function () {
     if (this.readyState === 4) {
@@ -14,8 +15,10 @@ function checkConnection() {
       console.log('Body:', this.responseText);
       if(this.responseText == 'true') {
         $('p.connect').text('connected');
+        $('button.connect#status').css('background-color', 'green');
       } else {
         $('p.connect').text('not connect');
+        $('button.connect#status').css('background-color', 'red');
       }
     }
   };
@@ -27,7 +30,7 @@ function clickMove(element) {
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {DIR:dir});
     var pin = getPin(dir);
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/v' + pin + '?value=1');
+    $.get('http://blynk-cloud.com/' + auth_token + '/update/v' + pin + '?value=1');
     $('#' + dir).addClass('pressing');
   }
 }
@@ -49,7 +52,7 @@ function getPin(dir) {
 function still() {
   $('.wheel.pressing').removeClass('pressing');
   // $.get(nodeMcuIp, {DIR:'STILL'});
-  $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/v7?value=1');
+  $.get('http://blynk-cloud.com/' + auth_token +'/update/v7?value=1');
 }
 
 function pressMove(element) {
@@ -57,16 +60,20 @@ function pressMove(element) {
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {DIR:dir});
     var pin = getPin(dir);
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/v' + pin + '?value=1');
+    $.get('http://blynk-cloud.com/' + auth_token +'/update/v' + pin + '?value=1');
     element.addClass('pressing');
   }
 }
 
-function readIpFromInput() {
-  nodeMcuIp = $('input.ip_input').val();
-  nodeMcuIp = 'http://' + nodeMcuIp;
+function readAuthTokenFromInput() {
+  var input = $('input.ip_input').val();
+  if(input !== '') {
+    auth_token = input;
+  } else {
+    auth_token = 'd47461487fe24c2bac9d7b04d72c9439';
+  }
   $('input.ip_input').val('');
-  $('#current_ip').text('Current IP: ' + nodeMcuIp);
+  $('#current_auth_token').text('Auth Token: ' + auth_token);
 }
 
 function panCam(element) {
@@ -79,7 +86,7 @@ function panCam(element) {
     } else {
       camAngle -= 5;
     }
-    $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/v2?value=' + camAngle);
+    $.get('http://blynk-cloud.com/' + auth_token +'/update/v2?value=' + camAngle);
   }
 }
 
@@ -91,12 +98,12 @@ function stillCam() {
 
 
 $(document).ready(function(){
-  $('button.connect').click(function() {
+  $('button.connect#refresh').click(function() {
     checkConnection();
   });
   $('button.ip_input').click(function() {
-    readIpFromInput();
-    console.log(nodeMcuIp);
+    readAuthTokenFromInput();
+    console.log(auth_token);
   });
   $(".wheel").mousedown(function(){
     clickMove($(this));
@@ -122,8 +129,8 @@ $(document).ready(function(){
       }
     } else {
       if(key === '\r') {
-        readIpFromInput();
-        console.log(nodeMcuIp);
+        readAuthTokenFromInput();
+        console.log(auth_token);
       }
     }
   });
