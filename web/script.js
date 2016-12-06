@@ -12,7 +12,11 @@ function checkConnection() {
       console.log('Status:', this.status);
       console.log('Headers:', this.getAllResponseHeaders());
       console.log('Body:', this.responseText);
-      return this.responseText == 'true';
+      if(this.responseText == 'true') {
+        $('p.connect').text('connected');
+      } else {
+        $('p.connect').text('not connect');
+      }
     }
   };
 
@@ -87,13 +91,9 @@ function stillCam() {
 
 
 $(document).ready(function(){
-  if(checkConnection()) {
-    $('#connect').text('connected');
-    isCarConnect = true;
-  } else {
-    $('#connect').text('not connect');
-    isCarConnect = false;
-  }
+  $('button.connect').click(function() {
+    checkConnection();
+  });
   $('button.ip_input').click(function() {
     readIpFromInput();
     console.log(nodeMcuIp);
