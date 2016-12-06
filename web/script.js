@@ -1,6 +1,23 @@
 var nodeMcuIp;
 var camAngle = 90;
+var isCarConnect = false;
 
+function checkConnection() {
+  var request = new XMLHttpRequest();
+
+  request.open('GET', 'http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/isHardwareConnected');
+
+  request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
+      return this.responseText == 'true';
+    }
+  };
+
+  request.send()
+}
 function clickMove(element) {
   if($('.pressing').length === 0) {
     var dir = element.attr('id');
@@ -70,6 +87,13 @@ function stillCam() {
 
 
 $(document).ready(function(){
+  if(checkConnection()) {
+    $('#connect').text('connected');
+    isCarConnect = true;
+  } else {
+    $('#connect').text('not connect');
+    isCarConnect = false;
+  }
   $('button.ip_input').click(function() {
     readIpFromInput();
     console.log(nodeMcuIp);
