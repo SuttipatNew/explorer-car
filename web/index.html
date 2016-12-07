@@ -31,23 +31,18 @@
           <input type="text" name="ip_input" class="ip_input" placeholder="Default: d47461487fe24c2bac9d7b04d72c9439">
           <button type="submit" name="submit_button" class="ip_input">submit</button>
           <br>
-          <p id="current_auth_token"></p>
+          <p id="current_auth_token">Auth Token: d47461487fe24c2bac9d7b04d72c9439</p>
+          <button type="button" name="remove_auth" id="remove_auth">remove</button>
           <div class='connect'>
             <button class="connect" id="status"></button>
             <p class="connect">not connect</p>
             <button id="refresh" class="connect"></button>
           </div>
         </div>
-        <div class="wrap">
-          <iframe id="camera_screen" src="." width="100%" height="300px" iframe_zoom="0.2"></iframe>
-          <!-- <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;
-           width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80"
-           scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;"
-           allowTransparency="true"></iframe> -->
-        </div>
       </div>
       <div class="col-md-4" style="text-align: center;">
         <h2 class="controller cam">Camera</h2>
+        <button id='resetCam'>reset</button>
         <div class="controller cam">
           <button type="button" class="cam btn" name="LEFT" id="LEFT">LEFT</button>
           <button type="button" class="cam btn" name="RIGHT" id="RIGHT">RIGHT</button>

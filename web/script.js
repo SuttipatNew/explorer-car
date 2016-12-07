@@ -50,7 +50,7 @@ function getPin(dir) {
 }
 
 function still() {
-  $('.wheel.pressing').removeClass('pressing');
+  removePressing($('.wheel.pressing'));
   // $.get(nodeMcuIp, {DIR:'STILL'});
   $.get('http://blynk-cloud.com/' + auth_token +'/update/v7?value=1');
 }
@@ -74,6 +74,8 @@ function readAuthTokenFromInput() {
   }
   $('input.ip_input').val('');
   $('#current_auth_token').text('Auth Token: ' + auth_token);
+  $('#remove_auth').css('display', 'inline');
+  checkConnection();
 }
 
 function panCam(element) {
@@ -81,24 +83,36 @@ function panCam(element) {
     element.addClass('pressing');
     var dir = element.attr('id');
     // $.get(nodeMcuIp, {CAM:dir});
-    if(dir == 'RIGHT') {
-      camAngle += 5;
-    } else {
-      camAngle -= 5;
+    if(dir == 'RIGHT' && camAngle < 180) {
+      camAngle += 45;
+    } else if (dir == 'LEFT' && camAngle > 0){
+      camAngle -= 45;
     }
     $.get('http://blynk-cloud.com/' + auth_token +'/update/v2?value=' + camAngle);
   }
 }
 
-function stillCam() {
-  $('.pressing.cam').removeClass('pressing');
-  // $.get(nodeMcuIp, {CAM:'STILL'});
-  // $.get('http://blynk-cloud.com/d47461487fe24c2bac9d7b04d72c9439/update/pin?value=1');
+function resetCam() {
+  $.get('http://blynk-cloud.com/' + auth_token +'/update/v2?value=90');
+}
+
+function removePressing(element) {
+  element.removeClass('pressing');
+}
+
+function removeAuth() {
+  auth_token = '';
+  $('#current_auth_token').text('');
+  $('#remove_auth').css('display', 'none');
+  checkConnection();
 }
 
 
 $(document).ready(function(){
+  checkConnection();
   $('button.connect#refresh').click(function() {
+    $('p.connect').text('');
+    resetCam();
     checkConnection();
   });
   $('button.ip_input').click(function() {
@@ -107,6 +121,12 @@ $(document).ready(function(){
   });
   $(".wheel").mousedown(function(){
     clickMove($(this));
+  });
+  $('#remove_auth').click(function() {
+    removeAuth();
+  });
+  $('button#resetCam').click(function() {
+    resetCam();
   });
   $(document).mouseup(function(){
     still();
@@ -139,7 +159,7 @@ $(document).ready(function(){
     if(key === 'W' || key === 'S' || key === 'A' || key === 'D') {
       still();
     } else if(event.keyCode === 190 || event.keyCode === 188) {
-      stillCam();
+      removePressing($('.pressing.cam'));
     }
   });
 });
