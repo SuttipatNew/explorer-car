@@ -15,10 +15,10 @@ function checkConnection() {
       console.log('Body:', this.responseText);
       if(this.responseText == 'true') {
         $('p.connect').text('connected');
-        $('button.connect#status').css('background-color', 'green');
+        $('button.connect.status').css('background-color', 'green');
       } else {
         $('p.connect').text('not connect');
-        $('button.connect#status').css('background-color', 'red');
+        $('button.connect.status').css('background-color', 'red');
       }
     }
   };
@@ -26,12 +26,14 @@ function checkConnection() {
   request.send()
 }
 function clickMove(element) {
-  if($('.pressing').length === 0) {
-    var dir = element.attr('id');
-    // $.get(nodeMcuIp, {DIR:dir});
+  if($('.wheel.pressing').length === 0) {
+    var dir = element.attr('name');
     var pin = getPin(dir);
+    if(pin == null) {
+      return;
+    }
     $.get('http://blynk-cloud.com/' + auth_token + '/update/v' + pin + '?value=1');
-    $('#' + dir).addClass('pressing');
+    $('.wheel.' + dir).addClass('pressing');
   }
 }
 
@@ -43,7 +45,7 @@ function getPin(dir) {
     pin = 4;
   } else if(dir === 'LEFT') {
     pin = 5;
-  } else {
+  } else if(dir === 'RIGHT') {
     pin = 6;
   }
   return pin;
@@ -57,7 +59,7 @@ function still() {
 
 function pressMove(element) {
   if($('.pressing.wheel').length === 0) {
-    var dir = element.attr('id');
+    var dir = element.attr('name');
     // $.get(nodeMcuIp, {DIR:dir});
     var pin = getPin(dir);
     $.get('http://blynk-cloud.com/' + auth_token +'/update/v' + pin + '?value=1');
@@ -67,21 +69,24 @@ function pressMove(element) {
 
 function readAuthTokenFromInput() {
   var input = $('input.ip_input').val();
+  if(input === '') {
+    input = $('input.ip_input.mobile').val();
+  }
   if(input !== '') {
     auth_token = input;
   } else {
     auth_token = 'd47461487fe24c2bac9d7b04d72c9439';
   }
   $('input.ip_input').val('');
-  $('#current_auth_token').text('Auth Token: ' + auth_token);
-  $('#remove_auth').css('display', 'inline');
+  $('.current_auth_token').text('Auth Token: ' + auth_token);
+  $('.remove_auth').css('display', 'inline');
   checkConnection();
 }
 
 function panCam(element) {
   if($('.pressing.cam').length == 0) {
     element.addClass('pressing');
-    var dir = element.attr('id');
+    var dir = element.attr('name');
     // $.get(nodeMcuIp, {CAM:dir});
     if(dir == 'RIGHT' && camAngle < 180) {
       camAngle += 45;
@@ -102,15 +107,15 @@ function removePressing(element) {
 
 function removeAuth() {
   auth_token = '';
-  $('#current_auth_token').text('');
-  $('#remove_auth').css('display', 'none');
+  $('.current_auth_token').text('');
+  $('.remove_auth').css('display', 'none');
   checkConnection();
 }
 
 
 $(document).ready(function(){
   checkConnection();
-  $('button.connect#refresh').click(function() {
+  $('button.connect.refresh').click(function() {
     $('p.connect').text('');
     resetCam();
     checkConnection();
@@ -119,33 +124,37 @@ $(document).ready(function(){
     readAuthTokenFromInput();
     console.log(auth_token);
   });
-  $(".wheel").mousedown(function(){
+  $(".wheel.btn").mousedown(function(){
     clickMove($(this));
   });
-  $('#remove_auth').click(function() {
+  $(".cam.btn").mousedown(function() {
+    panCam($(this));
+  });
+  $('.remove_auth').click(function() {
     removeAuth();
   });
-  $('button#resetCam').click(function() {
+  $('button.resetCam').click(function() {
     resetCam();
   });
   $(document).mouseup(function(){
     still();
+    removePressing($('.cam'))
   });
   $(document).on( "keydown", function( event ) {
     var key = String.fromCharCode(event.keyCode);
     if(!$('input.ip_input').is(':focus')) {
       if (key === 'W') {
-        pressMove($('.wheel#UP'));
+        pressMove($('.wheel.UP'));
       } else if (key === 'S') {
-        pressMove($('.wheel#DOWN'))
+        pressMove($('.wheel.DOWN'))
       } else if (key === 'A') {
-        pressMove($('.wheel#LEFT'))
+        pressMove($('.wheel.LEFT'))
       } else if (key === 'D') {
-        pressMove($('.wheel#RIGHT'))
+        pressMove($('.wheel.RIGHT'))
       } else if (event.keyCode === 190) {  //camera right
-        panCam($('.cam#RIGHT'));
+        panCam($('.cam.RIGHT'));
       } else if (event.keyCode === 188) {  //camera left
-        panCam($('.cam#LEFT'));
+        panCam($('.cam.LEFT'));
       }
     } else {
       if(key === '\r') {

@@ -1,3 +1,9 @@
+@media (min-width: 1000px) {
+  .mobile {
+    display: none;
+  }
+}
+
 body {
   padding: 0px;
   margin: 0px;
@@ -93,13 +99,14 @@ button.ip_input {
   border: 1px solid black;
   height: 30px;
   border-radius: 10%;
+  display: inline;
 }
 
 button.ip_input:hover {
   box-shadow: 0px 0px 5px grey;
 }
 
-button#remove_auth {
+button.remove_auth {
   color: white;
   display: inline;
   background-color: red;
@@ -108,11 +115,11 @@ button#remove_auth {
   border-radius: 10%;
 }
 
-button#remove_auth:hover {
+button.remove_auth:hover {
   box-shadow: 0px 0px 5px grey;
 }
 
-p#current_auth_token {
+p.current_auth_token {
   margin-top: 10px;
 }
 
@@ -137,7 +144,7 @@ button.connect {
   margin: 10px;
 }
 
-button.connect#refresh {
+button.connect.refresh {
   background: url("images/refresh.png");
   background-size: 60%;
   background-position: center;
@@ -151,7 +158,7 @@ h2.cam {
   margin-top: 20px;
 }
 
-button#resetCam {
+button.resetCam {
   text-align: center;
   background-color: white;
   width: 50px;
@@ -159,13 +166,26 @@ button#resetCam {
   height: 30px;
   padding: 5px;
   border-radius: 12%;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
-button#resetCam:hover {
+button.resetCam:hover {
   box-shadow: 0px 0px 5px grey;
 }
 
 div.controller.cam {
   margin-top: 50px;
+}
+
+.mobile {
+  zoom: 3;
+}
+
+input.mobile {
+  zoom: 1;
+  width: 200px;
+}
+
+.mobile.controller {
+  zoom: 0.75;
 }
