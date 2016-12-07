@@ -100,6 +100,7 @@ button.ip_input:hover {
 }
 
 button#remove_auth {
+  color: white;
   display: inline;
   background-color: red;
   border: 1px solid black;
