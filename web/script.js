@@ -88,10 +88,10 @@ function panCam(element) {
     element.addClass('pressing');
     var dir = element.attr('name');
     // $.get(nodeMcuIp, {CAM:dir});
-    if(dir == 'RIGHT' && camAngle < 180) {
-      camAngle += 45;
-    } else if (dir == 'LEFT' && camAngle > 0){
+    if(dir == 'RIGHT' && camAngle > 0) {
       camAngle -= 45;
+    } else if (dir == 'LEFT' && camAngle < 180){
+      camAngle += 45;
     }
     $.get('http://blynk-cloud.com/' + auth_token +'/update/v2?value=' + camAngle);
   }
