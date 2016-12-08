@@ -1,7 +1,8 @@
 // var nodeMcuIp;
 var camAngle = 90;
 var isCarConnect = false;
-var auth_token = 'd47461487fe24c2bac9d7b04d72c9439';
+var default_token = 'efff2dc9f1bb4b09bda5bf2659705c07';
+var auth_token = 'efff2dc9f1bb4b09bda5bf2659705c07';
 
 function checkConnection() {
   var request = new XMLHttpRequest();
@@ -75,7 +76,7 @@ function readAuthTokenFromInput() {
   if(input !== '') {
     auth_token = input;
   } else {
-    auth_token = 'd47461487fe24c2bac9d7b04d72c9439';
+    auth_token = default_token;
   }
   $('input.ip_input').val('');
   $('.current_auth_token').text('Auth Token: ' + auth_token);
