@@ -25,8 +25,8 @@ function checkConnection() {
       } else {
         $('p.connect').text('not connect');
         $('button.connect.status').css('background-color', 'red');
-        $('p.temp_meter').text('');
-        $('p.humid_meter').text('');
+        $('p.temp_meter').text('N/A');
+        $('p.humid_meter').text('N/A');
       }
     }
   };
@@ -150,6 +150,7 @@ function panCam(element) {
 
 function resetCam() {
   $.get('http://blynk-cloud.com/' + auth_token +'/update/v2?value=90');
+  camAngle = 90;
 }
 
 function removePressing(element) {
