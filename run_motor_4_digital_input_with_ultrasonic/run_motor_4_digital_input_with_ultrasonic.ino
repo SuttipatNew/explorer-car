@@ -23,7 +23,7 @@ void loop()
 }
 
 void move(int pin0, int pin1, int pin2) {
-  if(!pin2 /*|| (findDistance() <= 10 && pin0 && pin1)*/) {
+  if(!pin2 || (findDistance() <= 10 && pin0 && pin1)) {
     digitalWrite(PIN_PB2, LOW);
     digitalWrite(PIN_PB3, LOW);
     digitalWrite(PIN_PB4, LOW);

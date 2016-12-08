@@ -2,14 +2,17 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 #include <Servo.h>
+#include <SPI.h>
+#include <SimpleTimer.h>
+#include <DHT.h>
 
 #define D4 2
 #define D5 14
 #define D6 12
 #define D7 13
+#define DHTPIN 4   
+#define DHTTYPE DHT11
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
 char auth[] = "efff2dc9f1bb4b09bda5bf2659705c07";
 //char ssid[] = "KUWIN";
 //char password[] = "";
@@ -20,6 +23,24 @@ char password[] = "Home025611592";
 
 Servo servo;
 WidgetTerminal terminal(V0);
+
+DHT dht(DHTPIN, DHTTYPE);
+SimpleTimer timer;
+
+void sendSensor()
+{
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  // Please don't send more that 10 values per second.
+  Blynk.virtualWrite(V9, t);
+  Blynk.virtualWrite(V10, h);
+}
+
 
 void move(int x, int y) {
   if (y > 512) {
@@ -59,6 +80,7 @@ void setup()
   terminal.flush();
   
   servo.attach(D4);
+  dht.begin();
   pinMode(D5, OUTPUT);
   pinMode(D6, OUTPUT);
   pinMode(D7, OUTPUT);
@@ -79,7 +101,7 @@ void getValUltra() {
 
 void loop()
 {
-//  getValUltra();
+  sendSensor();
   Blynk.run();
 }
 

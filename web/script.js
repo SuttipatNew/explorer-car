@@ -7,6 +7,9 @@ var auth_token = 'efff2dc9f1bb4b09bda5bf2659705c07';
 var tempPin = 9;
 var humidPin = 10;
 
+var tempUpdate = null;
+var humidUpdate = null;
+
 function checkConnection() {
   var request = new XMLHttpRequest();
 
@@ -14,17 +17,19 @@ function checkConnection() {
 
   request.onreadystatechange = function () {
     if (this.readyState === 4) {
-      console.log('Status:', this.status);
-      console.log('Headers:', this.getAllResponseHeaders());
-      console.log('Body:', this.responseText);
+      // console.log('Status:', this.status);
+      // console.log('Headers:', this.getAllResponseHeaders());
+      // console.log('Body:', this.responseText);
       if(this.responseText == 'true') {
         $('p.connect').text('connected');
         $('button.connect.status').css('background-color', 'green');
-        setInterval(updateTemp, 1000);
-        setInterval(updateHumid, 1000);
+        tempUpdate = setInterval(updateTemp, 1000);
+        humidUpdate = setInterval(updateHumid, 1000);
       } else {
         $('p.connect').text('not connect');
         $('button.connect.status').css('background-color', 'red');
+        clearInterval(tempUpdate);
+        clearInterval(humidUpdate);
         $('p.temp_meter').text('N/A');
         $('p.humid_meter').text('N/A');
       }
@@ -44,10 +49,13 @@ function updateTemp() {
       // console.log('Status:', this.status);
       // console.log('Headers:', this.getAllResponseHeaders());
       // console.log('Body:', this.responseText);
+      if(this.status == 200) {
+        console.log('hello');
+      }
       var start = this.responseText.indexOf("\"") + 1;
       var end = this.responseText.indexOf(".", start + 1);
       var text = this.responseText.substring(start,end);
-      console.log(text);
+      // console.log(text);
       $('p.temp_meter').text(text);
     }
   };
@@ -68,7 +76,7 @@ function updateHumid() {
       var start = this.responseText.indexOf("\"") + 1;
       var end = this.responseText.indexOf(".", start + 1);
       var text = this.responseText.substring(start,end);
-      console.log(text);
+      // console.log(text);
       $('p.humid_meter').text(text);
     }
   };
