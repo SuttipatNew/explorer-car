@@ -33,6 +33,7 @@ function checkConnection() {
         $('p.temp_meter').text('N/A');
         $('p.humid_meter').text('N/A');
       }
+      $('button.connect.status').css('display', 'inline');
     }
   };
 
@@ -177,6 +178,7 @@ $(document).ready(function(){
   checkConnection();
   $('button.connect.refresh').click(function() {
     $('p.connect').text('');
+    $('button.connect.status').css('display', 'none');
     resetCam();
     checkConnection();
   });
