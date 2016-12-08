@@ -154,6 +154,48 @@ button.connect.refresh {
   padding: 12px;
 }
 
+div.dht11 {
+  background-color: #224d93;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
+  font-size: 20px;
+}
+
+div.temp {
+  text-align: left;
+  width: 45%;
+  display: inline-block;
+}
+
+p.temp_head {
+  display: inline;
+}
+
+p.temp_meter {
+  padding: 5px 10px 5px 10px;
+  background-color: black;
+  display: inline;
+  margin-left: 40px;
+}
+
+p.humid_head {
+  display: inline;
+}
+
+p.humid_meter {
+  padding: 5px 10px 5px 10px;
+  background-color: black;
+  display: inline;
+  margin-left: 40px;
+}
+
+div.humid {
+  text-align: left;
+  width: 45%;
+  display: inline-block;
+}
+
 h2.cam {
   margin-top: 20px;
 }
@@ -188,4 +230,9 @@ input.mobile {
 
 .mobile.controller {
   zoom: 0.75;
+}
+
+.mobile.dht11 {
+  zoom: 0.8;
+  text-align: center;
 }
